@@ -136,25 +136,25 @@ $(document).ready(function(){
 
   );
 
-  /////
+  // Carrega Google charts
 
   google.charts.load('current', {'packages':['corechart']});
 
+  // Roda funções e operações para cada item da biblioteca
+
   jQuery.each(biblioteca.funcao, function(i, val){
 
-    /////
+    // Cálcula incremento e valores das coordenadas
 
     var funcao = biblioteca.funcao[i]
     var nPontos = 100;
 
-    var intervalo = funcao.intervalo;
-    var inicio = intervalo[0];
-    var fim = intervalo[1];
+    intervalo = funcao.intervalo;
+    inicio = intervalo[0];
+    fim = intervalo[1];
 
     funcao["incremento"] = Math.abs(inicio - fim) / nPontos;
     var incremento = funcao.incremento;
-
-    /////
 
     var dadosOriginaisArray = [['x', 'y']];
     funcao["dadosOriginaisArray"] = dadosOriginaisArray;
@@ -166,7 +166,29 @@ $(document).ready(function(){
       funcao.dadosOriginaisArray[j][1] = parseFloat(funcao.dadosOriginaisArray[j][1]);
     }
 
-    /////
+    // Calcula altura ou largura do gráfico com base no tamanho da tela atual
+
+    function redimensiona(medida){
+
+      var breakpoint = 966;
+      var windowWidth = $(window).width();
+
+      if(medida == "width"){
+        if(windowWidth >= breakpoint){
+          return windowWidth/2;
+        } else {
+          return windowWidth;
+        }
+      } else if(medida == "height"){
+        if(windowWidth >= breakpoint){
+          return windowWidth/4;
+        } else {
+          return windowWidth/2;
+        }
+      }
+    }
+
+    // Define propriedades da visualização do gráfico listado em menu e expandido
 
     var visualizacaoCollapsada = {
       curveType: 'function',
@@ -189,8 +211,8 @@ $(document).ready(function(){
         maxValue: funcao.vAxis[1],
       },
       fontName: 'monospace',
-      width: 300,
-      height: 150,
+      width: 300, // baseado em valores declarados no CSS
+      height: 150, // baseado em valores declarados no CSS
     };
 
     var visualizacaoExpandida = {
@@ -217,25 +239,7 @@ $(document).ready(function(){
       height: redimensiona("height"),
     };
 
-    function redimensiona(medida){
-
-      var breakpoint = 966;
-      var windowWidth = $(window).width();
-
-      if(medida == "width"){
-        if(windowWidth >= breakpoint){
-          return windowWidth/2;
-        } else {
-          return windowWidth;
-        }
-      } else if(medida == "height"){
-        if(windowWidth >= breakpoint){
-          return windowWidth/4;
-        } else {
-          return windowWidth/2;
-        }
-      }
-    }
+    // Converte dados para o Google Charts e exibe
 
     google.charts.setOnLoadCallback(function(){
 
@@ -246,11 +250,11 @@ $(document).ready(function(){
 
     });
 
-    /////
+    // Roda funções relacionadas às operações incluídas no array.
 
     jQuery.each(operacoes.item, function(i,val){
 
-      //////
+      // Transforma gráficos originais de acordo com a operação atual
 
       var operacao = operacoes.item[i];
 
@@ -259,28 +263,47 @@ $(document).ready(function(){
 
       operacao.dadosOperacaoFuncao(i, funcao.dadosOriginaisArray, operacao.dadosOperacaoArray);
 
-      $(operacao.id).find("h6").text(operacao.descricao);
+      // Inclui texto descritivo nos botões das operações e adiciona evento de clique
 
-      /////
+      var item = $("#" + funcao.id).parent(".botao").parent(".item");
 
-      $("#" + funcao.id).parent().siblings().find(operacao.id).on("click", function(){
+      item.find(operacao.id)
+        .append("<h6>" + operacao.descricao + "</h6>")
+        .on("click", function(){
 
-        var data = google.visualization.arrayToDataTable(dadosOperacaoArray);
-        var options = visualizacaoExpandida;
-        var chart = new google.visualization.LineChart(document.getElementById(funcao.id));
-        chart.draw(data, options);
+          // Converte dados para o Google Charts e exibe
 
-      });
+          var data = google.visualization.arrayToDataTable(dadosOperacaoArray);
+          var options = visualizacaoExpandida;
+          var chart = new google.visualization.LineChart(document.getElementById(funcao.id));
+          chart.draw(data, options);
+
+        });
 
     });
 
-    //////
+    // Variáveis dos botões principais
 
-    $(".botao").on("click", function(){
+    var btnAbrirItem = $(".botao");
+    var btnFecharItem = $(".btn-fechar");
+    var btnFuncaoOriginal = $(".original");
+
+    // Evento de clique nas funções do menu
+
+    btnAbrirItem.on("click", function(){
+
+      // Abre item clicado e esconde os demais
 
       var parent = $(this).parent(".item");
       parent.addClass("expandido");
       parent.siblings().hide();
+
+      // Inicia com o botão da operação original ativo
+
+      btnFuncaoOriginal.addClass("ativo");
+      btnFuncaoOriginal.siblings().removeClass("ativo");
+
+      // Converte dados da array Original para Google Charts e exibe
 
       var data = google.visualization.arrayToDataTable(funcao.dadosOriginaisArray);
       var options = visualizacaoExpandida;
@@ -289,14 +312,22 @@ $(document).ready(function(){
 
     });
 
-    $(".btn-fechar").on("click", function(){
+    // Evento de clique no botão Fechar
+
+    btnFecharItem.on("click", function(){
+
+      // Fecha item e volta para menu de itens
 
       var parent = $(this).parent(".item");
       parent.removeClass("expandido");
       parent.siblings().show();
 
-      $(".original").addClass("ativo");
-      $(".original").siblings().removeClass("ativo");
+      // Volta para operação original ativa
+
+      btnFuncaoOriginal.addClass("ativo");
+      btnFuncaoOriginal.siblings().removeClass("ativo");
+
+      // Converte dados da array Original para Google Charts e exibe
 
       var data = google.visualization.arrayToDataTable(funcao.dadosOriginaisArray);
       var options = visualizacaoCollapsada;
@@ -305,14 +336,16 @@ $(document).ready(function(){
 
     });
 
+    // Eventos de clique nos botões de operação
+
     $(".btn-operacao").on("click", function(){
+
+      // Adiciona classe de botão ativo e a remove das demais.
 
       $(this).addClass("ativo");
       $(this).siblings().removeClass("ativo");
 
-    })
-
-    ////
+    });
 
   });
 
