@@ -125,20 +125,16 @@ body {
       padding-top: .5rem;
       font-family: monospace; }
 
-.item:nth-child(4n+2) .circulo,
-.item:nth-child(4n+2).expandido {
+.item:nth-child(4n+2) .circulo, .item:nth-child(4n+2).expandido {
   background-color: #d2eaff; }
 
-.item:nth-child(4n+3) .circulo,
-.item:nth-child(4n+3).expandido {
+.item:nth-child(4n+3) .circulo, .item:nth-child(4n+3).expandido {
   background-color: #dfffe4; }
 
-.item:nth-child(4n+4) .circulo,
-.item:nth-child(4n+4).expandido {
+.item:nth-child(4n+4) .circulo, .item:nth-child(4n+4).expandido {
   background-color: #e9dafd; }
 
-.item:nth-child(4n+5) .circulo,
-.item:nth-child(4n+5).expandido {
+.item:nth-child(4n+5) .circulo, .item:nth-child(4n+5).expandido {
   background-color: #fcffc8; }
 
 /*# sourceMappingURL=custom.css.map */
