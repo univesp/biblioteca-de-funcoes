@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
-  /////
+  // adicionarFuncao() adiciona novos gráficos originais (formato JSON) na biblioteca.
+  // Forneça um valor para cada propriedade abaixo relacionada.
 
   function adicionarFuncao(nome, id, intervalo, dadosOriginaisFuncao, vAxis){
 
@@ -46,7 +47,32 @@ $(document).ready(function(){
 
   );
 
-  /////
+  adicionarFuncao(
+
+    "x * seno", // nome ( string )
+    "chart3", // id ( string )
+    [-10, 10], // intervalo ( array [ inicio, fim ] )
+    function(dadosOriginaisArray, termo){ // função original ( function )
+      dadosOriginaisArray.push([ termo, termo*(Math.sin(termo)) ]);
+    },
+    [-12, 12], // eixo vertical ( array [ min, max ])
+
+  );
+
+  adicionarFuncao(
+
+    "sen(x^3)", // nome ( string )
+    "chart4", // id ( string )
+    [-3, 3], // intervalo ( array [ inicio, fim ] )
+    function(dadosOriginaisArray, termo){ // função original ( function )
+      dadosOriginaisArray.push([ termo, Math.sin(Math.pow(termo,3)) ]);
+    },
+    [-1.1, 1.1], // eixo vertical ( array [ min, max ])
+
+  );
+
+  // adicionarOperacao() adiciona novas operações para os gráficos originais.
+  // Forneça um valor para cada propriedade abaixo relacionada.
 
   function adicionarOperacao(nome, descricao, id, dadosOperacaoFuncao){
 
@@ -109,15 +135,6 @@ $(document).ready(function(){
     },
 
   );
-
-  // adicionarOperacao(
-  //
-  //   "f do módulo", // nome ( string )
-  //   ".operacao3",
-  //   function(i, dadosOriginaisArray, dadosOperacaoArray){ // função (function)
-  //   }
-  //
-  // );
 
   /////
 
