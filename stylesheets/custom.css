@@ -59,6 +59,8 @@ body {
     transform: scale(1.2); }
   .item .operacoes, .item .btn-fechar {
     display: none; }
+  .item .botao .formula {
+    color: #172833; }
 
 .item.expandido {
   width: 100%;
