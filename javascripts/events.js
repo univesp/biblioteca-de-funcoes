@@ -95,7 +95,7 @@ $(document).ready(function(){
     "Descrição da Operação Original", // descrição ( string )
     ".original", // id ( string )
     function(i, dadosOriginaisArray, dadosOperacaoArray){ // função (function)
-      for(j = 1; j <= 99; j++){
+      for(j = 1; j <= nPontos - 1; j++){
         dadosOperacaoArray.push([ dadosOriginaisArray[j][0], dadosOriginaisArray[j][1] ]);
       };
     },
@@ -108,7 +108,7 @@ $(document).ready(function(){
     "Descrição da Operação Módulo", // descrição ( string )
     ".operacao1", // id ( string )
     function(i, dadosOriginaisArray, dadosOperacaoArray){ // função (function)
-      for(j = 1; j <= 99; j++){
+      for(j = 1; j <= nPontos - 1; j++){
         if(dadosOriginaisArray[j][1] < 0){
           dadosOperacaoArray.push([ dadosOriginaisArray[j][0], -1 * dadosOriginaisArray[j][1] ]);
         } else {
@@ -126,7 +126,7 @@ $(document).ready(function(){
     ".operacao2", // id ( string )
     function(i, dadosOriginaisArray, dadosOperacaoArray){ // função (function)
       constante = 5;
-      for(j = 1; j <= 99; j++){
+      for(j = 1; j <= nPontos - 1; j++){
         x = parseFloat(dadosOriginaisArray[j][0]);
         y = parseFloat(dadosOriginaisArray[j][1]);
         y = y + constante;
@@ -142,12 +142,13 @@ $(document).ready(function(){
 
   // Roda funções e operações para cada item da biblioteca
 
+  var nPontos = 100;
+
   jQuery.each(biblioteca.funcao, function(i, val){
 
     // Cálcula incremento e valores das coordenadas
 
     var funcao = biblioteca.funcao[i]
-    var nPontos = 100;
 
     intervalo = funcao.intervalo;
     inicio = intervalo[0];
