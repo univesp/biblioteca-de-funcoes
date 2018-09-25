@@ -1,0 +1,228 @@
+$alturaRodape: 60px;
+$cinzaEscuro: #f2f2f2;
+$corFonte: #172833;
+$tempoTransicao: .25s;
+
+@mixin fontePrincipal { font-family: 'Glegoo', monospace }
+@mixin fonteSecundária { font-family: monospace }
+
+$breakPoint: ("(max-width: 966px)");
+
+body {
+
+  min-height: calc(100vh - #{$alturaRodape});
+  background-image: linear-gradient(white, $cinzaEscuro);
+  color: $corFonte;
+
+}
+
+.pularNavegacao {
+
+  &, &:active, &:focus, &:hover {
+    text-indent: 100%;
+    white-space : nowrap;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    color: transparent;
+    position: absolute;
+  }
+
+}
+
+.flex {
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+
+}
+
+.titulo {
+
+  @include fontePrincipal;
+  padding-top: 6rem;
+  padding-bottom: 3rem;
+  width: 100%;
+  text-align: center;
+  @media #{$breakPoint}{ padding-top: 3rem }
+
+  h1 {
+    font-weight: bold;
+    font-size: 3rem;
+    @media #{$breakPoint}{ font-size: 2rem }
+  }
+
+  h2 {
+    font-size: 1.2rem;
+    @media #{$breakPoint}{
+      font-size: 1rem;
+      line-height: 150%;
+    }
+  }
+
+}
+
+.item {
+
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  margin: 1.5rem;
+
+  .chart {
+    rect {
+      fill: transparent;
+    }
+  }
+
+  .circulo {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    border-radius: 50%;
+    margin-left: 75px;
+    transition:$tempoTransicao all;
+  }
+
+  &:hover .circulo {
+    transform: scale(1.2);
+  }
+
+  .operacoes, .btn-fechar {
+    display: none;
+  }
+
+  .botao .formula {
+    color: $corFonte;
+  }
+
+}
+
+.item.expandido {
+
+  width: 100%;
+  min-height: calc(100vh - #{$alturaRodape});
+  align-items: center;
+  margin: 0;
+  @media #{$breakPoint}{
+    display: flex;
+    flex-flow: column wrap;
+    min-height: auto;
+  }
+
+  .chart {
+    rect {
+      fill: black;
+      transition:$tempoTransicao all;
+    }
+  }
+
+  .circulo {
+    display: none;
+  }
+
+  .botao, .operacoes {
+    width: 50%;
+    @media #{$breakPoint}{
+      width: 100%;
+      margin-top: 2rem;
+    }
+  }
+
+  .operacoes {
+    display: inline-block;
+    padding: 2rem;
+    @media #{$breakPoint}{
+      padding: 30px;
+    }
+
+    h2 {
+      @include fontePrincipal;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+  }
+
+  .btn-fechar {
+
+    display: inline-block;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    cursor: pointer;
+    font-size: 4rem;
+    border-radius: 50%;
+    transition:$tempoTransicao all;
+    @media #{$breakPoint}{
+      font-size: 2rem;
+    }
+
+    &:hover {
+      background-color: white;
+      border-radius: 50%;
+    }
+
+  }
+
+  .btn-operacao {
+
+    background-color: white;
+    width: 100%;
+    border-radius: 0;
+    margin-top: .5rem;
+    transition:$tempoTransicao all;
+    cursor: pointer;
+
+    &:focus, &:hover, &.ativo {
+      background-color: $corFonte;
+      color: white;
+    }
+
+    & h6 {
+      display: none;
+      padding: 0;
+    }
+
+    &.ativo h6 {
+      display: block;
+      color: gray;
+      padding-top: .5rem;
+      @include fonteSecundária;
+    }
+
+  }
+
+}
+
+$corItem1: #d2eaff;
+$corItem2: #dfffe4;
+$corItem3: #e9dafd;
+$corItem4: #fcffc8;
+
+.item:nth-child(4n+2){
+  .circulo, &.expandido {
+    background-color: $corItem1;
+  }
+}
+
+.item:nth-child(4n+3){
+  .circulo, &.expandido {
+    background-color: $corItem2;
+  }
+}
+
+.item:nth-child(4n+4){
+  .circulo, &.expandido {
+    background-color: $corItem3;
+  }
+}
+
+.item:nth-child(4n+5){
+  .circulo, &.expandido {
+    background-color: $corItem4;
+  }
+}

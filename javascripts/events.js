@@ -67,9 +67,10 @@ $(document).ready(function(){
     function(dadosOriginaisArray, termo){ // função original ( function )
       dadosOriginaisArray.push([ termo, Math.sin(Math.pow(termo,3)) ]);
     },
-    [-1.1, 1.1], // eixo vertical ( array [ min, max ])
+    [-10, 10], // eixo vertical ( array [ min, max ])
 
   );
+
 
   // adicionarOperacao() adiciona novas operações para os gráficos originais.
   // Forneça um valor para cada propriedade abaixo relacionada.
@@ -86,6 +87,7 @@ $(document).ready(function(){
     });
 
   }
+
 
   var operacoes = { item: [] }
 
@@ -135,6 +137,26 @@ $(document).ready(function(){
     },
 
   );
+
+
+  adicionarOperacao(
+
+    "f(|x|)", // nome ( string )
+    "Descrição da Operação f(|x|)", // descrição ( string )
+    ".operacao3", // id ( string )
+    function(i, dadosOriginaisArray, dadosOperacaoArray){ // função (function)
+       for(j = 1; j <= nPontos - 1; j++){
+         x = parseFloat(dadosOriginaisArray[j][0]);
+         y = parseFloat(dadosOriginaisArray[j][1]);
+  		   if(x < 0){
+           y = parseFloat(dadosOriginaisArray[nPontos-j][1]);
+         }
+         dadosOperacaoArray.push([x, y]);
+       };
+    },
+
+  );
+
 
   // Carrega Google charts
 
@@ -194,7 +216,7 @@ $(document).ready(function(){
     var visualizacaoCollapsada = {
       curveType: 'function',
       legend: 'none',
-      colors: ['black','#000000'],
+      colors: ['black','#172833'],
       backgroundColor: 'transparent',
       enableInteractivity: false,
       animation:{
@@ -219,7 +241,7 @@ $(document).ready(function(){
     var visualizacaoExpandida = {
       curveType: 'function',
       legend: 'none',
-      colors: ['black','#000000'],
+      colors: ['black','#172833'],
       backgroundColor: 'transparent',
       enableInteractivity: false,
       animation: {
@@ -308,8 +330,8 @@ $(document).ready(function(){
 
       var data = google.visualization.arrayToDataTable(funcao.dadosOriginaisArray);
       var options = visualizacaoExpandida;
-      var chart1 = new google.visualization.LineChart(document.getElementById(funcao.id));
-      chart1.draw(data, options);
+      var chart = new google.visualization.LineChart(document.getElementById(funcao.id));
+      chart.draw(data, options);
 
     });
 
@@ -332,8 +354,8 @@ $(document).ready(function(){
 
       var data = google.visualization.arrayToDataTable(funcao.dadosOriginaisArray);
       var options = visualizacaoCollapsada;
-      var chart1 = new google.visualization.LineChart(document.getElementById(funcao.id));
-      chart1.draw(data, options);
+      var chart = new google.visualization.LineChart(document.getElementById(funcao.id));
+      chart.draw(data, options);
 
     });
 
