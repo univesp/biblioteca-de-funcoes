@@ -38,14 +38,22 @@ body {
 
 }
 
+break {
+
+  flex-basis: 100%;
+  width: 0px;
+  height: 0px;
+  overflow: hidden;
+
+}
+
 .titulo {
 
   @include fontePrincipal;
-  padding-top: 6rem;
+  padding-top: 3rem;
   padding-bottom: 3rem;
   width: 100%;
   text-align: center;
-  @media #{$breakPoint}{ padding-top: 3rem }
 
   h1 {
     font-weight: bold;
@@ -55,6 +63,7 @@ body {
 
   h2 {
     font-size: 1.2rem;
+    line-height: 150%;
     @media #{$breakPoint}{
       font-size: 1rem;
       line-height: 150%;
@@ -97,6 +106,13 @@ body {
 
   .botao .formula {
     color: $corFonte;
+  }
+
+  &:last-child {
+    padding-bottom: 3rem;
+    @media #{$breakPoint}{
+      padding-bottom: 8rem;
+    }
   }
 
 }
@@ -174,6 +190,7 @@ body {
     width: 100%;
     border-radius: 0;
     margin-top: .5rem;
+    padding: 1rem;
     transition:$tempoTransicao all;
     cursor: pointer;
 
@@ -185,6 +202,7 @@ body {
     & h6 {
       display: none;
       padding: 0;
+      line-height: 150%;
     }
 
     &.ativo h6 {
@@ -203,25 +221,25 @@ $corItem2: #dfffe4;
 $corItem3: #e9dafd;
 $corItem4: #fcffc8;
 
-.item:nth-child(4n+2){
+.item:nth-of-type(4n+1){
   .circulo, &.expandido {
     background-color: $corItem1;
   }
 }
 
-.item:nth-child(4n+3){
+.item:nth-of-type(4n+2){
   .circulo, &.expandido {
     background-color: $corItem2;
   }
 }
 
-.item:nth-child(4n+4){
+.item:nth-of-type(4n+3){
   .circulo, &.expandido {
     background-color: $corItem3;
   }
 }
 
-.item:nth-child(4n+5){
+.item:nth-of-type(4n+4){
   .circulo, &.expandido {
     background-color: $corItem4;
   }

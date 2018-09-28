@@ -19,38 +19,67 @@ $(document).ready(function(){
 
   var biblioteca = { funcao: [] };
 
+
   adicionarFuncao(
 
-    "seno", // nome ( string )
+    "identidade", // nome ( string )
     "chart1", // id ( string )
-    [-2 * Math.PI, 2 * Math.PI], // intervalo ( array [ inicio, fim ] )
+    [-3, 3], // intervalo ( array [ inicio, fim ] )
     function(dadosOriginaisArray, termo){ // função original ( function )
-      dadosOriginaisArray.push([ termo.toFixed(5), Math.sin(termo.toFixed(5)) ]);
+      dadosOriginaisArray.push([ termo, termo ]);
     },
-    [-5, 5], // eixo vertical ( array [ min, max ])
+    [-10, 10], // eixo vertical ( array [ min, max ])
 
   );
+
+
+  adicionarFuncao(
+
+    "parábola", // nome ( string )
+    "chart2", // id ( string )
+    [-3, 3], // intervalo ( array [ inicio, fim ] )
+    function(dadosOriginaisArray, termo){ // função original ( function )
+      dadosOriginaisArray.push([ termo, Math.pow(termo,2) -1 ]);
+    },
+    [-10, 10], // eixo vertical ( array [ min, max ])
+
+  );
+
 
   adicionarFuncao(
 
     "polinômio", // nome ( string )
-    "chart2", // id ( string )
-    [-1.5, 2.5], // intervalo ( array [ inicio, fim ] )
+    "chart3", // id ( string )
+    [-2.5, 2.5], // intervalo ( array [ inicio, fim ] )
     function(dadosOriginaisArray, termo){ // função original ( function )
       valor = Math.pow( termo, 3 );
       valor = valor - 2 * ( Math.pow ( termo, 2 ) )
       valor = valor - termo + 2
-      valor = 10 * ( valor.toFixed(5) );
+      valor = 5 * ( valor.toFixed(5) );
       dadosOriginaisArray.push([ termo.toFixed(5), valor ]);
     },
-    [-100, 100], // eixo vertical ( array [ min, max ])
+    [-120, 120], // eixo vertical ( array [ min, max ])
 
   );
+
+
+  adicionarFuncao(
+
+    "seno", // nome ( string )
+    "chart4", // id ( string )
+    [-2 * Math.PI, 2 * Math.PI], // intervalo ( array [ inicio, fim ] )
+    function(dadosOriginaisArray, termo){ // função original ( function )
+      dadosOriginaisArray.push([ termo.toFixed(5), Math.sin(termo.toFixed(5)) ]);
+    },
+    [-2, 2], // eixo vertical ( array [ min, max ])
+
+  );
+
 
   adicionarFuncao(
 
     "x * seno", // nome ( string )
-    "chart3", // id ( string )
+    "chart5", // id ( string )
     [-10, 10], // intervalo ( array [ inicio, fim ] )
     function(dadosOriginaisArray, termo){ // função original ( function )
       dadosOriginaisArray.push([ termo, termo*(Math.sin(termo)) ]);
@@ -62,7 +91,7 @@ $(document).ready(function(){
   adicionarFuncao(
 
     "sen(x^3)", // nome ( string )
-    "chart4", // id ( string )
+    "chart6", // id ( string )
     [-3, 3], // intervalo ( array [ inicio, fim ] )
     function(dadosOriginaisArray, termo){ // função original ( function )
       dadosOriginaisArray.push([ termo, Math.sin(Math.pow(termo,3)) ]);
@@ -70,7 +99,6 @@ $(document).ready(function(){
     [-10, 10], // eixo vertical ( array [ min, max ])
 
   );
-
 
   // adicionarOperacao() adiciona novas operações para os gráficos originais.
   // Forneça um valor para cada propriedade abaixo relacionada.
@@ -94,7 +122,7 @@ $(document).ready(function(){
   adicionarOperacao(
 
     "original", // nome ( string )
-    "Descrição da Operação Original", // descrição ( string )
+    "Os pontos originais da função.", // descrição ( string )
     ".original", // id ( string )
     function(i, dadosOriginaisArray, dadosOperacaoArray){ // função (function)
       for(j = 1; j <= nPontos - 1; j++){
@@ -107,7 +135,7 @@ $(document).ready(function(){
   adicionarOperacao(
 
     "módulo", // nome ( string )
-    "Descrição da Operação Módulo", // descrição ( string )
+    "Na operação MÓDULO, os valores negativos do eixo y tornam-se positivos (se não houver valores negativos, o gráfico permanece o mesmo).", // descrição ( string )
     ".operacao1", // id ( string )
     function(i, dadosOriginaisArray, dadosOperacaoArray){ // função (function)
       for(j = 1; j <= nPontos - 1; j++){
@@ -124,10 +152,13 @@ $(document).ready(function(){
   adicionarOperacao(
 
     "constante", // nome ( string )
-    "Descrição da Operação Constante", // descrição ( string )
+    "Na operação CONSTANTE, o gráfico é deslocado para cima de acordo com valor da constante.", // descrição ( string )
     ".operacao2", // id ( string )
-    function(i, dadosOriginaisArray, dadosOperacaoArray){ // função (function)
-      constante = 5;
+    function(i, dadosOriginaisArray, dadosOperacaoArray, funcao){ // função (function)
+      constante = funcao.vAxis[1]/4;
+      console.log(funcao.nome);
+      console.log(funcao.vAxis[1]);
+      console.log(constante);
       for(j = 1; j <= nPontos - 1; j++){
         x = parseFloat(dadosOriginaisArray[j][0]);
         y = parseFloat(dadosOriginaisArray[j][1]);
@@ -142,7 +173,7 @@ $(document).ready(function(){
   adicionarOperacao(
 
     "f(|x|)", // nome ( string )
-    "Descrição da Operação f(|x|)", // descrição ( string )
+    "Na operação F DO MÓDULO, os pontos do gráfico que estão nos quadrantes à direita do eixo y são espelhados nos quadrantes à esquerda, tornando a função par (caso a função seja originalmente par, o gráfico permanece o mesmo).", // descrição ( string )
     ".operacao3", // id ( string )
     function(i, dadosOriginaisArray, dadosOperacaoArray){ // função (function)
        for(j = 1; j <= nPontos - 1; j++){
@@ -250,12 +281,14 @@ $(document).ready(function(){
         startup: 'true',
       },
       hAxis: {
-        textPosition: 'right',
+        textPosition: 'left',
+        title: 'y',
       },
       vAxis: {
-        textPosition: 'right',
+        textPosition: 'left',
         minValue: funcao.vAxis[0],
         maxValue: funcao.vAxis[1],
+        title: 'x',
       },
       fontName: 'monospace',
       width: redimensiona("width"),
@@ -284,7 +317,7 @@ $(document).ready(function(){
       var dadosOperacaoArray = [['x', 'y']];
       operacao["dadosOperacaoArray"] = dadosOperacaoArray;
 
-      operacao.dadosOperacaoFuncao(i, funcao.dadosOriginaisArray, operacao.dadosOperacaoArray);
+      operacao.dadosOperacaoFuncao(i, funcao.dadosOriginaisArray, operacao.dadosOperacaoArray, funcao);
 
       // Inclui texto descritivo nos botões das operações e adiciona evento de clique
 
