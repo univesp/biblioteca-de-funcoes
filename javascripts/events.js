@@ -264,7 +264,7 @@ $(document).ready(function(){
         minValue: funcao.vAxis[0],
         maxValue: funcao.vAxis[1],
       },
-      fontName: 'monospace',
+      fontName: 'serif',
       width: 300, // baseado em valores declarados no CSS
       height: 150, // baseado em valores declarados no CSS
     };
@@ -290,7 +290,7 @@ $(document).ready(function(){
         maxValue: funcao.vAxis[1],
         title: 'x',
       },
-      fontName: 'monospace',
+      fontName: 'Glegoo',
       width: redimensiona("width"),
       height: redimensiona("height"),
     };

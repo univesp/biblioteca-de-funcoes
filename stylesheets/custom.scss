@@ -1,18 +1,23 @@
-$alturaRodape: 60px;
-$cinzaEscuro: #f2f2f2;
+$cinza: #f2f2f2;
 $corFonte: #172833;
 $tempoTransicao: .25s;
 
 @mixin fontePrincipal { font-family: 'Glegoo', monospace }
-@mixin fonteSecundária { font-family: monospace }
+@mixin fonteSecundaria { font-family: monospace }
 
 $breakPoint: ("(max-width: 966px)");
 
 body {
 
-  min-height: calc(100vh - #{$alturaRodape});
-  background-image: linear-gradient(white, $cinzaEscuro);
+  background-color: #F9F9F9;
   color: $corFonte;
+
+}
+
+main, .item.expandido {
+
+  min-height: calc(100vh - 143px);
+  @media #{$breakPoint}{ min-height: auto }
 
 }
 
@@ -58,12 +63,15 @@ break {
   h1 {
     font-weight: bold;
     font-size: 3rem;
-    @media #{$breakPoint}{ font-size: 2rem }
+    @media #{$breakPoint}{ font-size: 2.5rem }
   }
 
   h2 {
     font-size: 1.2rem;
     line-height: 150%;
+    max-width: 80%;
+    margin: auto;
+    display: block;
     @media #{$breakPoint}{
       font-size: 1rem;
       line-height: 150%;
@@ -76,14 +84,14 @@ break {
 
   display: flex;
   justify-content: center;
-  text-align: center;
+  text-align: center!important;
   position: relative;
   cursor: pointer;
   margin: 1.5rem;
 
   .chart {
     rect {
-      fill: transparent;
+      opacity: 0;
     }
   }
 
@@ -120,18 +128,16 @@ break {
 .item.expandido {
 
   width: 100%;
-  min-height: calc(100vh - #{$alturaRodape});
   align-items: center;
   margin: 0;
   @media #{$breakPoint}{
     display: flex;
     flex-flow: column wrap;
-    min-height: auto;
   }
 
   .chart {
     rect {
-      fill: black;
+      opacity: .5;
       transition:$tempoTransicao all;
     }
   }
@@ -157,10 +163,14 @@ break {
 
     h2 {
       @include fontePrincipal;
-      font-size: 1rem;
-      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
     }
 
+  }
+
+  .MathJax {
+    transition: $tempoTransicao all;
   }
 
   .btn-fechar {
@@ -186,30 +196,35 @@ break {
 
   .btn-operacao {
 
-    background-color: white;
+    background-color: rgba(white,0.6);
     width: 100%;
+    height: 100%;
     border-radius: 0;
     margin-top: .5rem;
-    padding: 1rem;
-    transition:$tempoTransicao all;
+    padding: 1rem 2rem;
+    transition: $tempoTransicao all;
     cursor: pointer;
+    border: 1px solid transparent;
 
-    &:focus, &:hover, &.ativo {
-      background-color: $corFonte;
-      color: white;
+    &:focus, &:hover, &:active, &.ativo {
+      background-color: rgba(white, 100);
     }
 
     & h6 {
       display: none;
       padding: 0;
       line-height: 150%;
+      transition: $tempoTransicao all;
     }
 
     &.ativo h6 {
       display: block;
-      color: gray;
+      color: black;
+      font-size: .85rem;
+      font-weight: bold;
+      line-height: 175%;
       padding-top: .5rem;
-      @include fonteSecundária;
+      @include fontePrincipal;
     }
 
   }
@@ -225,11 +240,37 @@ $corItem4: #fcffc8;
   .circulo, &.expandido {
     background-color: $corItem1;
   }
+  &.expandido {
+    .chart rect {
+      fill: darken($corItem1, 25);
+    }
+    .btn-operacao {
+      &:focus, &:hover, &:active, &.ativo {
+        border-color: darken($corItem1, 25);
+      }
+      &.ativo .MathJax {
+        color: darken($corItem1, 25);
+      }
+    }
+  }
 }
 
 .item:nth-of-type(4n+2){
   .circulo, &.expandido {
     background-color: $corItem2;
+  }
+  &.expandido {
+    .chart rect {
+      fill: darken($corItem2, 50);
+    }
+    .btn-operacao {
+      &:focus, &:hover, &:active, &.ativo {
+        border-color: darken($corItem2, 50);
+      }
+      &.ativo .MathJax {
+        color: darken($corItem2, 50);
+      }
+    }
   }
 }
 
@@ -237,10 +278,36 @@ $corItem4: #fcffc8;
   .circulo, &.expandido {
     background-color: $corItem3;
   }
+  &.expandido {
+    .chart rect {
+      fill: darken($corItem3, 25);
+    }
+    .btn-operacao {
+      &:focus, &:hover, &:active, &.ativo {
+        border-color: darken($corItem3, 25);
+      }
+      &.ativo .MathJax {
+        color: darken($corItem3, 25);
+      }
+    }
+  }
 }
 
 .item:nth-of-type(4n+4){
   .circulo, &.expandido {
     background-color: $corItem4;
+  }
+  &.expandido {
+    .chart rect {
+      fill: darken($corItem4, 50);
+    }
+    .btn-operacao {
+      &:focus, &:hover, &:active, &.ativo {
+        border-color: darken($corItem4, 50);
+      }
+      &.ativo .MathJax {
+        color: darken($corItem4, 50);
+      }
+    }
   }
 }

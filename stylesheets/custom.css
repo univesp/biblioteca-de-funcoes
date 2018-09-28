@@ -1,7 +1,12 @@
 body {
-  min-height: calc(100vh - 60px);
-  background-image: linear-gradient(white, #f2f2f2);
+  background-color: #F9F9F9;
   color: #172833; }
+
+main, .item.expandido {
+  min-height: calc(100vh - 143px); }
+  @media (max-width: 966px) {
+    main, .item.expandido {
+      min-height: auto; } }
 
 .pularNavegacao, .pularNavegacao:active, .pularNavegacao:focus, .pularNavegacao:hover {
   text-indent: 100%;
@@ -34,10 +39,13 @@ break {
     font-size: 3rem; }
     @media (max-width: 966px) {
       .titulo h1 {
-        font-size: 2rem; } }
+        font-size: 2.5rem; } }
   .titulo h2 {
     font-size: 1.2rem;
-    line-height: 150%; }
+    line-height: 150%;
+    max-width: 80%;
+    margin: auto;
+    display: block; }
     @media (max-width: 966px) {
       .titulo h2 {
         font-size: 1rem;
@@ -46,12 +54,12 @@ break {
 .item {
   display: flex;
   justify-content: center;
-  text-align: center;
+  text-align: center !important;
   position: relative;
   cursor: pointer;
   margin: 1.5rem; }
   .item .chart rect {
-    fill: transparent; }
+    opacity: 0; }
   .item .circulo {
     width: 150px;
     height: 150px;
@@ -73,16 +81,14 @@ break {
 
 .item.expandido {
   width: 100%;
-  min-height: calc(100vh - 60px);
   align-items: center;
   margin: 0; }
   @media (max-width: 966px) {
     .item.expandido {
       display: flex;
-      flex-flow: column wrap;
-      min-height: auto; } }
+      flex-flow: column wrap; } }
   .item.expandido .chart rect {
-    fill: black;
+    opacity: .5;
     transition: 0.25s all; }
   .item.expandido .circulo {
     display: none; }
@@ -100,8 +106,10 @@ break {
         padding: 30px; } }
     .item.expandido .operacoes h2 {
       font-family: "Glegoo", monospace;
-      font-size: 1rem;
-      font-weight: bold; }
+      font-size: 1.2rem;
+      margin-bottom: 1rem; }
+  .item.expandido .MathJax {
+    transition: 0.25s all; }
   .item.expandido .btn-fechar {
     display: inline-block;
     position: absolute;
@@ -118,36 +126,65 @@ break {
       background-color: white;
       border-radius: 50%; }
   .item.expandido .btn-operacao {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.6);
     width: 100%;
+    height: 100%;
     border-radius: 0;
     margin-top: .5rem;
-    padding: 1rem;
+    padding: 1rem 2rem;
     transition: 0.25s all;
-    cursor: pointer; }
-    .item.expandido .btn-operacao:focus, .item.expandido .btn-operacao:hover, .item.expandido .btn-operacao.ativo {
-      background-color: #172833;
-      color: white; }
+    cursor: pointer;
+    border: 1px solid transparent; }
+    .item.expandido .btn-operacao:focus, .item.expandido .btn-operacao:hover, .item.expandido .btn-operacao:active, .item.expandido .btn-operacao.ativo {
+      background-color: white; }
     .item.expandido .btn-operacao h6 {
       display: none;
       padding: 0;
-      line-height: 150%; }
+      line-height: 150%;
+      transition: 0.25s all; }
     .item.expandido .btn-operacao.ativo h6 {
       display: block;
-      color: gray;
+      color: black;
+      font-size: .85rem;
+      font-weight: bold;
+      line-height: 175%;
       padding-top: .5rem;
-      font-family: monospace; }
+      font-family: "Glegoo", monospace; }
 
 .item:nth-of-type(4n+1) .circulo, .item:nth-of-type(4n+1).expandido {
   background-color: #d2eaff; }
+.item:nth-of-type(4n+1).expandido .chart rect {
+  fill: #53afff; }
+.item:nth-of-type(4n+1).expandido .btn-operacao:focus, .item:nth-of-type(4n+1).expandido .btn-operacao:hover, .item:nth-of-type(4n+1).expandido .btn-operacao:active, .item:nth-of-type(4n+1).expandido .btn-operacao.ativo {
+  border-color: #53afff; }
+.item:nth-of-type(4n+1).expandido .btn-operacao.ativo .MathJax {
+  color: #53afff; }
 
 .item:nth-of-type(4n+2) .circulo, .item:nth-of-type(4n+2).expandido {
   background-color: #dfffe4; }
+.item:nth-of-type(4n+2).expandido .chart rect {
+  fill: #00df23; }
+.item:nth-of-type(4n+2).expandido .btn-operacao:focus, .item:nth-of-type(4n+2).expandido .btn-operacao:hover, .item:nth-of-type(4n+2).expandido .btn-operacao:active, .item:nth-of-type(4n+2).expandido .btn-operacao.ativo {
+  border-color: #00df23; }
+.item:nth-of-type(4n+2).expandido .btn-operacao.ativo .MathJax {
+  color: #00df23; }
 
 .item:nth-of-type(4n+3) .circulo, .item:nth-of-type(4n+3).expandido {
   background-color: #e9dafd; }
+.item:nth-of-type(4n+3).expandido .chart rect {
+  fill: #a161f6; }
+.item:nth-of-type(4n+3).expandido .btn-operacao:focus, .item:nth-of-type(4n+3).expandido .btn-operacao:hover, .item:nth-of-type(4n+3).expandido .btn-operacao:active, .item:nth-of-type(4n+3).expandido .btn-operacao.ativo {
+  border-color: #a161f6; }
+.item:nth-of-type(4n+3).expandido .btn-operacao.ativo .MathJax {
+  color: #a161f6; }
 
 .item:nth-of-type(4n+4) .circulo, .item:nth-of-type(4n+4).expandido {
   background-color: #fcffc8; }
+.item:nth-of-type(4n+4).expandido .chart rect {
+  fill: #bdc800; }
+.item:nth-of-type(4n+4).expandido .btn-operacao:focus, .item:nth-of-type(4n+4).expandido .btn-operacao:hover, .item:nth-of-type(4n+4).expandido .btn-operacao:active, .item:nth-of-type(4n+4).expandido .btn-operacao.ativo {
+  border-color: #bdc800; }
+.item:nth-of-type(4n+4).expandido .btn-operacao.ativo .MathJax {
+  color: #bdc800; }
 
 /*# sourceMappingURL=custom.css.map */
