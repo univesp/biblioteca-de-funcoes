@@ -3,15 +3,15 @@ $(document).ready(function(){
   // adicionarFuncao() adiciona novos gráficos originais (formato JSON) na biblioteca.
   // Forneça um valor para cada propriedade abaixo relacionada.
 
-  function adicionarFuncao(nome, id, intervalo, dadosOriginaisFuncao, vAxis){
+  function adicionarFuncao(nome, id, dadosOriginaisFuncao, hAxis, vAxis){
 
     biblioteca.funcao.push({
 
       nome: nome, // string
       id: id, // string
-      intervalo: intervalo, // array
       dadosOriginaisFuncao: dadosOriginaisFuncao, // function
-      vAxis: vAxis, // array
+      hAxis: hAxis, // array
+	  vAxis: vAxis, // array
 
     });
 
@@ -24,11 +24,11 @@ $(document).ready(function(){
 
     "identidade", // nome ( string )
     "chart1", // id ( string )
-    [-3, 3], // intervalo ( array [ inicio, fim ] )
     function(dadosOriginaisArray, termo){ // função original ( function )
       dadosOriginaisArray.push([ termo, termo ]);
     },
-    [-10, 10], // eixo vertical ( array [ min, max ])
+    [-3, 3], // hAxis ( array [ inicio, fim ] )
+	[-3, 3], // vAxis ( array [ inicio, fim ] )
 
   );
 
@@ -37,11 +37,11 @@ $(document).ready(function(){
 
     "parábola", // nome ( string )
     "chart2", // id ( string )
-    [-3, 3], // intervalo ( array [ inicio, fim ] )
     function(dadosOriginaisArray, termo){ // função original ( function )
       dadosOriginaisArray.push([ termo, Math.pow(termo,2) -1 ]);
     },
-    [-10, 10], // eixo vertical ( array [ min, max ])
+    [-3, 3], // hAxis ( array [ inicio, fim ] )
+	[-3, 3], // vAxis ( array [ inicio, fim ] )
 
   );
 
@@ -50,15 +50,15 @@ $(document).ready(function(){
 
     "polinômio", // nome ( string )
     "chart3", // id ( string )
-    [-2.5, 2.5], // intervalo ( array [ inicio, fim ] )
     function(dadosOriginaisArray, termo){ // função original ( function )
       valor = Math.pow( termo, 3 );
       valor = valor - 2 * ( Math.pow ( termo, 2 ) )
       valor = valor - termo + 2
-      valor = 5 * ( valor.toFixed(5) );
+      valor = ( valor.toFixed(5) );
       dadosOriginaisArray.push([ termo.toFixed(5), valor ]);
     },
-    [-120, 120], // eixo vertical ( array [ min, max ])
+    [-3, 3], // hAxis ( array [ inicio, fim ] )
+	[-3, 3], // vAxis ( array [ inicio, fim ] )
 
   );
 
@@ -67,11 +67,11 @@ $(document).ready(function(){
 
     "seno", // nome ( string )
     "chart4", // id ( string )
-    [-2 * Math.PI, 2 * Math.PI], // intervalo ( array [ inicio, fim ] )
     function(dadosOriginaisArray, termo){ // função original ( function )
       dadosOriginaisArray.push([ termo.toFixed(5), Math.sin(termo.toFixed(5)) ]);
     },
-    [-2, 2], // eixo vertical ( array [ min, max ])
+    [-2 * Math.PI, 2 * Math.PI], // hAxis ( array [ inicio, fim ] )
+	[-1.5, 1.5], // vAxis ( array [ inicio, fim ] )
 
   );
 
@@ -80,11 +80,11 @@ $(document).ready(function(){
 
     "x * seno", // nome ( string )
     "chart5", // id ( string )
-    [-10, 10], // intervalo ( array [ inicio, fim ] )
     function(dadosOriginaisArray, termo){ // função original ( function )
       dadosOriginaisArray.push([ termo, termo*(Math.sin(termo)) ]);
     },
-    [-12, 12], // eixo vertical ( array [ min, max ])
+    [-10, 10], // hAxis ( array [ inicio, fim ] )
+	[-10, 10], // vAxis ( array [ inicio, fim ] )
 
   );
 
@@ -92,11 +92,11 @@ $(document).ready(function(){
 
     "sen(x^3)", // nome ( string )
     "chart6", // id ( string )
-    [-3, 3], // intervalo ( array [ inicio, fim ] )
     function(dadosOriginaisArray, termo){ // função original ( function )
       dadosOriginaisArray.push([ termo, Math.sin(Math.pow(termo,3)) ]);
     },
-    [-10, 10], // eixo vertical ( array [ min, max ])
+    [-3, 3], // hAxis ( array [ inicio, fim ] )
+	[-3, 3], // vAxis ( array [ inicio, fim ] )
 
   );
 
@@ -135,7 +135,7 @@ $(document).ready(function(){
   adicionarOperacao(
 
     "módulo", // nome ( string )
-    "Na operação MÓDULO, os valores negativos do eixo y tornam-se positivos (se não houver valores negativos, o gráfico permanece o mesmo).", // descrição ( string )
+    "Na operação MÓDULO, os valores negativos do eixo Y tornam-se positivos (se não houver valores negativos, o gráfico permanece o mesmo).", // descrição ( string )
     ".operacao1", // id ( string )
     function(i, dadosOriginaisArray, dadosOperacaoArray){ // função (function)
       for(j = 1; j <= nPontos - 1; j++){
@@ -152,13 +152,10 @@ $(document).ready(function(){
   adicionarOperacao(
 
     "constante", // nome ( string )
-    "Na operação CONSTANTE, o gráfico é deslocado para cima de acordo com valor da constante.", // descrição ( string )
+    "Na operação SOMA DE UMA CONSTANTE, o gráfico é deslocado para cima ou para baixo de acordo com valor da constante.", // descrição ( string )
     ".operacao2", // id ( string )
     function(i, dadosOriginaisArray, dadosOperacaoArray, funcao){ // função (function)
       constante = funcao.vAxis[1]/4;
-      console.log(funcao.nome);
-      console.log(funcao.vAxis[1]);
-      console.log(constante);
       for(j = 1; j <= nPontos - 1; j++){
         x = parseFloat(dadosOriginaisArray[j][0]);
         y = parseFloat(dadosOriginaisArray[j][1]);
@@ -173,7 +170,7 @@ $(document).ready(function(){
   adicionarOperacao(
 
     "f(|x|)", // nome ( string )
-    "Na operação F DO MÓDULO, os pontos do gráfico que estão nos quadrantes à direita do eixo y são espelhados nos quadrantes à esquerda, tornando a função par (caso a função seja originalmente par, o gráfico permanece o mesmo).", // descrição ( string )
+    "Na operação F DO MÓDULO, os pontos do gráfico que estão nos quadrantes à direita do eixo Y são espelhados nos quadrantes à esquerda, tornando a função par (caso a função seja originalmente par, o gráfico permanece o mesmo).", // descrição ( string )
     ".operacao3", // id ( string )
     function(i, dadosOriginaisArray, dadosOperacaoArray){ // função (function)
        for(j = 1; j <= nPontos - 1; j++){
@@ -203,7 +200,7 @@ $(document).ready(function(){
 
     var funcao = biblioteca.funcao[i]
 
-    intervalo = funcao.intervalo;
+    intervalo = funcao.hAxis;
     inicio = intervalo[0];
     fim = intervalo[1];
 
@@ -257,12 +254,20 @@ $(document).ready(function(){
       },
       hAxis: {
         textPosition: 'none',
-        drawAxisLineEnabled: false
+        drawAxisLineEnabled: false,
+		viewWindow:{
+            max: funcao.hAxis[1],
+            min: funcao.hAxis[0],
+            interval: 1,
+        }
       },
       vAxis: {
         textPosition: 'none',
-        minValue: funcao.vAxis[0],
-        maxValue: funcao.vAxis[1],
+		viewWindow:{
+			max: funcao.vAxis[1],
+            min: funcao.vAxis[0],
+            interval: 1,
+        }
       },
       fontName: 'serif',
       width: 300, // baseado em valores declarados no CSS
@@ -283,12 +288,20 @@ $(document).ready(function(){
       hAxis: {
         textPosition: 'left',
         title: 'y',
+		viewWindow:{
+            max: funcao.hAxis[1],
+            min: funcao.hAxis[0],
+            interval: 1,
+        }
       },
       vAxis: {
         textPosition: 'left',
-        minValue: funcao.vAxis[0],
-        maxValue: funcao.vAxis[1],
         title: 'x',
+		viewWindow:{
+			max: funcao.vAxis[1],
+            min: funcao.vAxis[0],
+            interval: 1,
+        }
       },
       fontName: 'Glegoo',
       width: redimensiona("width"),
