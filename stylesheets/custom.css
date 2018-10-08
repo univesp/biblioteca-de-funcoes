@@ -86,12 +86,16 @@ break {
   @media (max-width: 966px) {
     .item.expandido {
       display: flex;
-      flex-flow: column wrap; } }
+      flex-flow: column wrap;
+      max-height: 100vh; } }
   .item.expandido .chart rect {
     opacity: .5;
     transition: 0.25s all; }
   .item.expandido .circulo {
     display: none; }
+  @media (max-width: 966px) {
+    .item.expandido .botao {
+      max-height: 50vh; } }
   .item.expandido .botao, .item.expandido .operacoes {
     width: 50%; }
     @media (max-width: 966px) {
@@ -103,11 +107,18 @@ break {
     padding: 2rem; }
     @media (max-width: 966px) {
       .item.expandido .operacoes {
-        padding: 30px; } }
+        padding: 2rem 0;
+        overflow: scroll;
+        max-height: 50vh;
+        background-color: white; } }
     .item.expandido .operacoes h2 {
       font-family: "Glegoo", monospace;
       font-size: 1.2rem;
       margin-bottom: 1rem; }
+      @media (max-width: 966px) {
+        .item.expandido .operacoes h2 {
+          font-size: 1rem;
+          padding: 1rem; } }
   .item.expandido .MathJax {
     transition: 0.25s all; }
   .item.expandido .btn-fechar {
@@ -126,15 +137,17 @@ break {
       background-color: white;
       border-radius: 50%; }
   .item.expandido .btn-operacao {
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: transparent;
+    border-color: transparent;
     width: 100%;
     height: 100%;
     border-radius: 0;
-    margin-top: .5rem;
     padding: 1rem 2rem;
     transition: 0.25s all;
-    cursor: pointer;
-    border: 1px solid transparent; }
+    cursor: pointer; }
+    @media (max-width: 966px) {
+      .item.expandido .btn-operacao {
+        margin-top: 0; } }
     .item.expandido .btn-operacao:focus, .item.expandido .btn-operacao:hover, .item.expandido .btn-operacao:active, .item.expandido .btn-operacao.ativo {
       background-color: white; }
     .item.expandido .btn-operacao h6 {
@@ -155,8 +168,6 @@ break {
   background-color: #d2eaff; }
 .item:nth-of-type(4n+1).expandido .chart rect {
   fill: #53afff; }
-.item:nth-of-type(4n+1).expandido .btn-operacao:focus, .item:nth-of-type(4n+1).expandido .btn-operacao:hover, .item:nth-of-type(4n+1).expandido .btn-operacao:active, .item:nth-of-type(4n+1).expandido .btn-operacao.ativo {
-  border-color: #53afff; }
 .item:nth-of-type(4n+1).expandido .btn-operacao.ativo .MathJax {
   color: #53afff; }
 
@@ -164,8 +175,6 @@ break {
   background-color: #dfffe4; }
 .item:nth-of-type(4n+2).expandido .chart rect {
   fill: #00df23; }
-.item:nth-of-type(4n+2).expandido .btn-operacao:focus, .item:nth-of-type(4n+2).expandido .btn-operacao:hover, .item:nth-of-type(4n+2).expandido .btn-operacao:active, .item:nth-of-type(4n+2).expandido .btn-operacao.ativo {
-  border-color: #00df23; }
 .item:nth-of-type(4n+2).expandido .btn-operacao.ativo .MathJax {
   color: #00df23; }
 
@@ -173,8 +182,6 @@ break {
   background-color: #e9dafd; }
 .item:nth-of-type(4n+3).expandido .chart rect {
   fill: #a161f6; }
-.item:nth-of-type(4n+3).expandido .btn-operacao:focus, .item:nth-of-type(4n+3).expandido .btn-operacao:hover, .item:nth-of-type(4n+3).expandido .btn-operacao:active, .item:nth-of-type(4n+3).expandido .btn-operacao.ativo {
-  border-color: #a161f6; }
 .item:nth-of-type(4n+3).expandido .btn-operacao.ativo .MathJax {
   color: #a161f6; }
 
@@ -182,8 +189,6 @@ break {
   background-color: #fcffc8; }
 .item:nth-of-type(4n+4).expandido .chart rect {
   fill: #bdc800; }
-.item:nth-of-type(4n+4).expandido .btn-operacao:focus, .item:nth-of-type(4n+4).expandido .btn-operacao:hover, .item:nth-of-type(4n+4).expandido .btn-operacao:active, .item:nth-of-type(4n+4).expandido .btn-operacao.ativo {
-  border-color: #bdc800; }
 .item:nth-of-type(4n+4).expandido .btn-operacao.ativo .MathJax {
   color: #bdc800; }
 

@@ -133,6 +133,7 @@ break {
   @media #{$breakPoint}{
     display: flex;
     flex-flow: column wrap;
+    max-height: 100vh;
   }
 
   .chart {
@@ -144,6 +145,12 @@ break {
 
   .circulo {
     display: none;
+  }
+
+  .botao {
+    @media #{$breakPoint}{
+      max-height: 50vh;
+    }
   }
 
   .botao, .operacoes {
@@ -158,13 +165,20 @@ break {
     display: inline-block;
     padding: 2rem;
     @media #{$breakPoint}{
-      padding: 30px;
+      padding: 2rem 0;
+      overflow: scroll;
+      max-height: 50vh;
+      background-color: white;
     }
 
     h2 {
       @include fontePrincipal;
       font-size: 1.2rem;
       margin-bottom: 1rem;
+      @media #{$breakPoint}{
+        font-size: 1rem;
+        padding: 1rem;
+      }
     }
 
   }
@@ -196,18 +210,20 @@ break {
 
   .btn-operacao {
 
-    background-color: rgba(white,0.6);
+    background-color: transparent;
+    border-color: transparent;
     width: 100%;
     height: 100%;
     border-radius: 0;
-    margin-top: .5rem;
     padding: 1rem 2rem;
     transition: $tempoTransicao all;
     cursor: pointer;
-    border: 1px solid transparent;
+    @media #{$breakPoint}{
+      margin-top: 0;
+    }
 
     &:focus, &:hover, &:active, &.ativo {
-      background-color: rgba(white, 100);
+      background-color: white;
     }
 
     & h6 {
@@ -245,9 +261,6 @@ $corItem4: #fcffc8;
       fill: darken($corItem1, 25);
     }
     .btn-operacao {
-      &:focus, &:hover, &:active, &.ativo {
-        border-color: darken($corItem1, 25);
-      }
       &.ativo .MathJax {
         color: darken($corItem1, 25);
       }
@@ -264,9 +277,6 @@ $corItem4: #fcffc8;
       fill: darken($corItem2, 50);
     }
     .btn-operacao {
-      &:focus, &:hover, &:active, &.ativo {
-        border-color: darken($corItem2, 50);
-      }
       &.ativo .MathJax {
         color: darken($corItem2, 50);
       }
@@ -283,9 +293,6 @@ $corItem4: #fcffc8;
       fill: darken($corItem3, 25);
     }
     .btn-operacao {
-      &:focus, &:hover, &:active, &.ativo {
-        border-color: darken($corItem3, 25);
-      }
       &.ativo .MathJax {
         color: darken($corItem3, 25);
       }
@@ -302,9 +309,6 @@ $corItem4: #fcffc8;
       fill: darken($corItem4, 50);
     }
     .btn-operacao {
-      &:focus, &:hover, &:active, &.ativo {
-        border-color: darken($corItem4, 50);
-      }
       &.ativo .MathJax {
         color: darken($corItem4, 50);
       }
